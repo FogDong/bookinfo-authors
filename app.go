@@ -2,13 +2,14 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type AuthorResp struct {
-	Id string `json:"id"`
+	Id      string    `json:"id"`
 	Authors []*Author `json:"authors"`
 }
 
@@ -19,9 +20,9 @@ type Author struct {
 
 func main() {
 	r := mux.NewRouter()
-    r.PathPrefix("/health").Subrouter().Methods(http.MethodGet).Subrouter().HandleFunc("", health)
-    r.PathPrefix("/authors/{productId}").Subrouter().Methods(http.MethodGet).Subrouter().HandleFunc("", bookAuthorsById)
-    http.Handle("/", r)
+	r.PathPrefix("/health").Subrouter().Methods(http.MethodGet).Subrouter().HandleFunc("", health)
+	r.PathPrefix("/authors/{productId}").Subrouter().Methods(http.MethodGet).Subrouter().HandleFunc("", bookAuthorsById)
+	http.Handle("/", r)
 
 	log.Println("Start listening http port 9080 ...")
 	if err := http.ListenAndServe(":9080", nil); err != nil {
@@ -50,7 +51,7 @@ func getAuthors(productId string) *AuthorResp {
 		Id: productId,
 		Authors: []*Author{
 			{
-				Name: "William Shakespeare",
+				Name: "KubeVela",
 				Desc: "(26 April 1564 – 23 April 1616) was an English playwright, poet, and actor, widely regarded as the greatest writer in the English language and the world's greatest dramatist. He is often called England's national poet and the \"Bard of Avon\" (or simply \"the Bard\"). His extant works, including collaborations, consist of some 39 plays, 154 sonnets, three long narrative poems, and a few other verses, some of uncertain authorship. His plays have been translated into every major living language and are performed more often than those of any other playwright.",
 			},
 		},
@@ -68,8 +69,8 @@ func bookAuthorsById(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-			log.Println(err)
-			return
+		log.Println(err)
+		return
 	}
 	w.Write(resp)
 }
