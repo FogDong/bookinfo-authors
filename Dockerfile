@@ -5,8 +5,8 @@ COPY go.mod go.mod
 COPY go.sum go.sum
 RUN go mod download
 
-COPY main.go .
-RUN go build -o kubevela-nocalhost-demo-app main.go
+COPY app.go .
+RUN go build -o kubevela-nocalhost-demo-app app.go
 
 FROM alpine:3.10
 WORKDIR /app
