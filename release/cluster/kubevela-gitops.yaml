@@ -18,7 +18,7 @@ spec:
         image: ghcr.io/fogdong/test-bookinfo-authors
         # secretRef: imagesecret
         filterTags:
-          pattern: '^master-[a-f0-9]+-(?P<ts>[0-9]+)'
+          pattern: '^main-[a-f0-9]+-(?P<ts>[0-9]+)'
           extract: '$ts'
         policy:
           numerical:
