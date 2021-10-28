@@ -1,0 +1,43 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: bookinfo-authors
+spec:
+  components:
+    - name: authors
+      type: webservice
+      properties:
+        image: ghcr.io/fogdong/test-bookinfo-authors:main-b298f642-1635413530 # {"$imagepolicy": "default:kubevela-gitops"}
+        port: 9080
+      traits:
+        - type: nocalhost
+          properties:
+            port: 9080
+            gitUrl: https://github.com/nocalhost/bookinfo-authors.git
+            image: go
+        - type: ingress
+          properties:
+            domain: testsvc.example.com
+            http:
+              /: 9080
+
+  workflow:
+    steps:
+      - name: apply-server
+        type: apply-component
+        properties: 
+          component: authors
+        outputs:
+          - name: server-status
+            valueFrom: output.spec.template.spec.containers[0].image + " image applied."
+      - name: slack-notification
+        type: webhook-notification
+        inputs:
+          - from: server-status
+            parameterKey: slack.message.text
+        properties:
+          slack:
+            url:
+              fromSecret:
+                name: my-secret
+                key: slack
