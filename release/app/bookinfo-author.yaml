@@ -7,7 +7,7 @@ spec:
     - name: authors
       type: webservice
       properties:
-        image: ghcr.io/fogdong/test-bookinfo-authors:main-b298f642-1635413530 # {"$imagepolicy": "default:kubevela-gitops"}
+        image: ghcr.io/fogdong/test-bookinfo-authors:main-51e8cf35-1635426299 # {"$imagepolicy": "default:kubevela-gitops"}
         port: 9080
       traits:
         - type: nocalhost
@@ -22,12 +22,11 @@ spec:
             domain: testsvc.example.com
             http:
               /: 9080
-
   workflow:
     steps:
       - name: apply-server
         type: apply-component
-        properties: 
+        properties:
           component: authors
         outputs:
           - name: server-status
