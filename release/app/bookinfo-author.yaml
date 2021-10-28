@@ -7,7 +7,7 @@ spec:
     - name: authors
       type: webservice
       properties:
-        image: ghcr.io/fogdong/test-bookinfo-authors:main-51e8cf35-1635426299 # {"$imagepolicy": "default:kubevela-gitops"}
+        image: ghcr.io/fogdong/test-bookinfo-authors:main-c92f3410-1635427354 # {"$imagepolicy": "default:kubevela-gitops"}
         port: 9080
       traits:
         - type: nocalhost
